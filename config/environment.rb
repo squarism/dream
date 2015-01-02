@@ -22,7 +22,7 @@ Gamebox.configure do |config|
   config.default_font_name = "fru_ext.ttf"
   config.default_font_color = Color.argb(255, 244, 215, 227)
 
-  config.stages = [:demo]
+  config.stages = [:intro]
   config.game_name = "Dream"
 end
 
