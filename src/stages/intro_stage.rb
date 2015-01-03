@@ -1,21 +1,23 @@
 define_stage :intro do
-  # render_with :my_renderer
 
   curtain_up do |*args|
     opts = args.first || {}
 
-    @message = create_actor :fading_text, text: "INTRO IN MY PANTS", x: 50, y:50, width: 25, height:35
-    # @message = create_actor :label, x: 50, y: 50, font_size: 32, text: "Hello world!"
-    @message.controller.map_controls '+f' => :fade_out
-    @message.controller.map_controls '+g' => :fade_in
-    # binding.pry
-    # @message.fade_out
+    message = create_actor :fading_text, text: "IN THE BEGINNING ...", x: 50, y:50, width: 25, height:35
+
+    timer_manager.add_timer 'text', 1000 do
+      message.emit :fade_out, 5000
+      timer_manager.remove_timer 'text'
+    end
+
+    timer_manager.add_timer 'all_done', 6000 do
+      fire :next_stage
+    end
+
+    director.when :all_done do
+      puts "got all_done signal!"
+      fire :next_stage
+    end
   end
 
-  # helpers do
-  #   include MyHelpers
-  #   def help
-  #     ...
-  #   end
-  # end
 end

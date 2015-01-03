@@ -16,8 +16,8 @@ define_behavior :fading do
       end
     end
 
-    actor.controller.when :fade_out, &method(:fade_out)
-    actor.controller.when :fade_in, &method(:fade_in)
+    actor.when :fade_out, &method(:fade_out)
+    actor.when :fade_in, &method(:fade_in)
   end
 
   remove do
@@ -31,12 +31,12 @@ define_behavior :fading do
       actor.alpha = actor.tween.value
     end
 
-    def fade_out(key_event)
-      actor.tween = Tween.new(255, 0, Tween::Linear, actor.tween_time)
+    def fade_out(time = actor.tween_time)
+      actor.tween = Tween.new(255, 0, Tween::Linear, time)
     end
 
-    def fade_in(key_event)
-      actor.tween = Tween.new(0, 255, Tween::Linear, actor.tween_time)
+    def fade_in(time = actor.tween_time)
+      actor.tween = Tween.new(0, 255, Tween::Linear, time)
     end
 
   end
