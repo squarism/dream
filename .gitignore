@@ -5,3 +5,4 @@ fakeroot
 *.swp
 crate_boot.h
 .bundle
+.DS_Store
