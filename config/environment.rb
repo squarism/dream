@@ -21,8 +21,10 @@ Gamebox.configure do |config|
 
   config.default_font_name = "fru_ext.ttf"
   config.default_font_color = Color.argb(255, 244, 215, 227)
+  config.default_font_size = 32
 
-  config.stages = [:intro]
+  # config.stages = [:intro, :work]
+  config.stages = [:work]
   config.game_name = "Dream"
 end
 
@@ -32,4 +34,6 @@ require "gamebox_application"
 require_all Dir.glob("{src,lib}/**/*.rb").reject{ |f| f.match("src/app.rb")}
 
 
+# undocumented?!
+Gosu::enable_undocumented_retrofication
 
