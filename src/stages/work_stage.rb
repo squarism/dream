@@ -32,7 +32,7 @@ define_stage :work do
 
     timer_manager.add_timer 'bring_in_night', 2000 do
       timer_manager.remove_timer 'bring_in_night'
-      day_sky.emit :fade_out, 10000
+      day_sky.emit :fade_out, 20000
       desk_night = create_actor :desk_night, x:330, y:226, layer:4
       library_night = create_actor :library_night, x:320, y:240, layer:1
       desk.emit :fade_out, 15000
