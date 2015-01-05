@@ -2,9 +2,11 @@ define_actor :sun do
   has_attributes view: :graphical_actor_view
 
   has_behaviors do
-    animated frame_update_time: 600, once: false
-    graphical scale: 3
+    animated frame_update_time: 200, once: false
+    graphical scale: 1
     positioned
+    layered
+    fading
   end
 
   behavior do
