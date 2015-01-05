@@ -3,10 +3,9 @@ define_actor :sun do
 
   has_behaviors do
     animated frame_update_time: 200, once: false
-    graphical scale: 1
+    graphical scale: 2
     positioned
     layered
-    fading
   end
 
   behavior do

@@ -20,9 +20,9 @@ define_behavior :sliding do
     actor.when :slide, &method(:slide)
   end
 
-  remove do
-    actor.unsubscribe_all self
-  end
+  # remove do
+  #   actor.unsubscribe_all self
+  # end
 
   helpers do
 
@@ -33,7 +33,7 @@ define_behavior :sliding do
       actor.y = actor.y_tween.value
     end
 
-    def slide(x:, y:, time: actor.tween_time, style: Tween::Sine::InOut)
+    def slide(x:, y:, time: actor.tween_time, style: Tween::Quad::InOut)
       actor.x_tween = Tween.new(actor.x, x, style, time)
       actor.y_tween = Tween.new(actor.y, y, style, time)
     end
