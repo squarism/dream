@@ -24,7 +24,7 @@ Gamebox.configure do |config|
   config.default_font_size = 32
 
   # config.stages = [:intro, :work, :close, :walk, :yard, :bedroom_sitting, :bedroom_sleeping, :dream]
-  config.stages = [:work, :close]
+  config.stages = [:walk]
   config.game_name = "Dream"
 end
 

@@ -1,8 +1,10 @@
 define_stage :work do
-  requires :behavior_factory
+  requires :behavior_factory, :sound_manager
 
   curtain_up do |*args|
     opts = args.first || {}
+
+    # sound_manager.play_music :dream
 
     day_sky = create_actor :day_sky, x:320, y:240, layer: 0
     desk = create_actor :desk, x:330, y:226, layer:5
