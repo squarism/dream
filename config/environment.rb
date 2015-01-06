@@ -25,7 +25,7 @@ Gamebox.configure do |config|
 
   # config.stages = [:intro, :work, :close, :walk, :yard, :bedroom_sitting, :bedroom_sleeping, :dream]
   # config.stages = [:intro, :work, :close, :walk]
-  config.stages = [:walk]
+  config.stages = [:house]
 
   config.game_name = "Dream"
 end
