@@ -34,6 +34,6 @@ require "gamebox_application"
 require_all Dir.glob("{src,lib}/**/*.rb").reject{ |f| f.match("src/app.rb")}
 
 
-# undocumented?!
+# Pixel art style.  At least they admit it's undocumented?  :|
 Gosu::enable_undocumented_retrofication
 

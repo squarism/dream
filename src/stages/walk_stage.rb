@@ -27,8 +27,17 @@ define_stage :walk do
     trees.emit :slide, x:-260, y:320, time: 75000, style: Tween::Linear
     next_trees.emit :slide, x:next_trees_start-640, y:320, time: 75000, style: Tween::Linear
 
+    # Lamps
+    lamps = []
+    lamp_distance = 440
+    (0..3).each do |i|
+      lamps << create_actor(:walk_lamp, x:(120 + (lamp_distance * i)), y:232, layer: 3)
+      behavior_factory.add_behavior lamps[i], :sliding
+      lamps[i].emit :slide, x:(-520 + (lamp_distance * i)), y:232, time: 45000, style: Tween::Linear
+    end
 
-    timer_manager.add_timer 'all_done', 25000 do
+    # maximum stage time is about 42 seconds
+    timer_manager.add_timer 'all_done', 40000 do
       fire :next_stage
     end
 

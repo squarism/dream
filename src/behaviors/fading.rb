@@ -21,7 +21,7 @@ define_behavior :fading do
   end
 
   remove do
-    actor.unsubscribe_all self
+      actor.unsubscribe_all self
   end
 
   helpers do

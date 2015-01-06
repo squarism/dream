@@ -23,7 +23,7 @@ define_behavior :sliding do
   # When subscribing to the director, one must also unsubscribe or strange things may happen.
   # -- shawn42
   remove do
-    actor.unsubscribe_all self
+      actor.unsubscribe_all self
   end
 
   helpers do
