@@ -27,15 +27,10 @@ define_stage :walk do
     trees.emit :slide, x:-260, y:300, time: 75000, style: Tween::Linear
     next_trees.emit :slide, x:next_trees_start-640, y:300, time: 75000, style: Tween::Linear
 
-    # Moon
-    moon = create_actor :moon, x:120, y:140, layer: 1
-    behavior_factory.add_behavior moon, :sliding
-    moon.emit :slide, x:120, y:140, time: 40000, style: Tween::Linear
-
     # Walking Lady
     person = create_actor :walk_person, x:-20, y:285, layer: 4
     behavior_factory.add_behavior person, :sliding
-    person.emit :slide, x:90, y:285, time: 24000, style: Tween::Linear
+    person.emit :slide, x:185, y:285, time: 36000, style: Tween::Linear
 
     # Lamps
     lamps = []
@@ -46,8 +41,15 @@ define_stage :walk do
       lamps[i].emit :slide, x:(-520 + (lamp_distance * i)), y:232, time: 45000, style: Tween::Linear
     end
 
+    timer_manager.add_timer 'fade_moon', 12000 do
+        timer_manager.remove_timer 'fade_moon'
+        moon = create_actor :moon, x:120, y:440, layer: 1
+        behavior_factory.add_behavior moon, :sliding
+        moon.emit :slide, x:120, y:120, time: 22000, style: Tween::Quad::InOut
+    end
+
     # maximum stage time is about 42 seconds
-    timer_manager.add_timer 'all_done', 24000 do
+    timer_manager.add_timer 'all_done', 36000 do
       fire :next_stage
     end
 
