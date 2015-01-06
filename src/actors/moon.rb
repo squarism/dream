@@ -1,4 +1,4 @@
-define_actor :sun do
+define_actor :moon do
   has_attributes view: :graphical_actor_view
 
   has_behaviors do
@@ -8,9 +8,4 @@ define_actor :sun do
     layered
   end
 
-  behavior do
-    setup do
-      actor.has_attributes width: 150, height: 350
-    end
-  end
 end
