@@ -9,20 +9,20 @@ define_stage :house do
     create_actor :moon, x:60, y:100, layer: 1
     create_actor :house_background, x:320, y:240, layer: 2
     create_actor :house_grass, x:460, y:360, layer: 6
-    create_actor :walk_lamp, x:20, y:193, layer: 7
+    create_actor :walk_lamp, x:233, y:193, layer: 7
 
     little_person = nil
     open_door = nil
 
     # lady
-    person = create_actor :walk_person, x:0, y:245, layer: 3
+    person = create_actor :walk_person, x:60, y:245, layer: 3
     behavior_factory.add_behavior person, :sliding
     person.emit :slide, x:245, y:245, time: 8000, style: Tween::Linear
 
 
     timer_manager.add_timer 'sidewalk', 8000 do
       timer_manager.remove_timer 'sidewalk'
-      person.emit :slide, x:260, y:235, time: 1000, style: Tween::Sine::InOut
+      person.emit :slide, x:266, y:237, time: 1000, style: Tween::Sine::InOut
     end
 
     timer_manager.add_timer 'hill', 9000 do
@@ -53,6 +53,14 @@ define_stage :house do
     timer_manager.add_timer 'door_close', 22000 do
       timer_manager.remove_timer 'door_close'
       open_door.remove
+    end
+
+    timer_manager.add_timer 'light_on', 23800 do
+      timer_manager.remove_timer 'light_on'
+      light = create_actor :house_light, x:410, y:181, layer: 5
+      behavior_factory.add_behavior light, :fading
+      light.alpha = 0
+      light.emit :fade_in, 2000
     end
 
     # maximum stage time is about 42 seconds
