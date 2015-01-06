@@ -20,9 +20,11 @@ define_behavior :sliding do
     actor.when :slide, &method(:slide)
   end
 
-  # remove do
-  #   actor.unsubscribe_all self
-  # end
+  # When subscribing to the director, one must also unsubscribe or strange things may happen.
+  # -- shawn42
+  remove do
+    actor.unsubscribe_all self
+  end
 
   helpers do
 
