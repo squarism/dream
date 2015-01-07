@@ -63,7 +63,6 @@ define_stage :house do
       light.emit :fade_in, 2000
     end
 
-    # maximum stage time is about 42 seconds
     timer_manager.add_timer 'all_done', 36000 do
       fire :next_stage
     end
