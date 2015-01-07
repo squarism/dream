@@ -5,7 +5,7 @@ define_stage :bedroom_sitting do
     opts = args.first || {}
 
     create_actor :starfield, x:320, y:240, layer: 1
-    create_actor :moon, x:90, y:80, layer: 2
+    create_actor :moon, x:160, y:80, layer: 2
 
     bedroom = create_actor :bedroom_background, x:320, y:240, layer: 10
     person = create_actor :bedroom_sitting, x:305, y:265, layer: 11, action: :idle
