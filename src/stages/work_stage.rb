@@ -28,6 +28,7 @@ define_stage :work do
     timer_manager.add_timer 'nightfade', 15000 do
       timer_manager.remove_timer 'nightfade'
       night_sky = create_actor :starfield, x:320, y:240, layer: -1
+      behavior_factory.add_behavior night_sky, :fading
       night_sky.alpha = 0
       night_sky.emit :fade_in, 15000
     end
