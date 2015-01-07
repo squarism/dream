@@ -34,18 +34,24 @@ define_stage :bedroom_sitting do
       cat.action = :idle
     end
 
-
+    # reach is 20 frames
     timer_manager.add_timer 'reach', 26000 do
       timer_manager.remove_timer 'reach'
       person.action = :reach
     end
 
+    # switch out the background so it looks like the lights turn off
+    # also this is precisely synced to the reach animation which
+    # goes grayscale itself to look like the lights went off
     timer_manager.add_timer 'lights_off', 29200 do
       timer_manager.remove_timer 'lights_off'
       create_actor :bedroom_background_night, x:320, y:240, layer: 10
       bedroom.remove
     end
 
+    # This it the transition phase to the next scene where the
+    # actors are still.  Very important to have actors still
+    # before starting something new.  Makes it easier to transition.
     timer_manager.add_timer 'lay_in_bed', 34000 do
       timer_manager.remove_timer 'lay_in_bed'
       person.remove
