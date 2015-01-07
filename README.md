@@ -18,3 +18,8 @@ image = ChunkyPNG::Image.from_blob(texture)
 #   https://github.com/StanAngeloff/compass-magick/blob/master/lib/magick/functions/operations/effects.rb
 
 How to get back?  I don't know!  :)
+
+
+Bedroom dim:
+Saturation: -50%
+Lightness: -80%
