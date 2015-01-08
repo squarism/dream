@@ -1,11 +1,36 @@
+# used for emitting prisms
+# TODO: perhaps this could be a particle system instead
+# create_prism_path { x: 100, y: 200 }
+# returns a new path with a destination point for tweening
+#   { x1: 100, y1: 200, x2: ..., y2: ... }
+def create_prism_path origin
+  path = { x1: origin[:x], y1: origin[:y] }
+  x2 = path[:x1] - 600
+  y2 = path[:y1] + 600
+  path.merge x2: x2, y2: y2
+end
+
+def emit_prism(origin, time=8_000)
+  # require 'pry'; binding.pry
+  path = create_prism_path origin
+  prism = create_actor :prism, x:path[:x1], y:path[:y1], layer: 2
+  # prism = create_actor :dream_prism, x:path[:x1], y:path[:y1], layer: 2
+  tween = tween_manager.tween_properties prism, {x: path[:x2], y:path[:y2]}, time, Tween::Linear
+  timer_manager.add_timer "kill_prism_#{prism.object_id}", time do
+    prism.remove
+  end
+end
+
+
 define_stage :dream do
   requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
 
-    person = create_actor :bedroom_covers, x:305, y:265, layer: 11
-    cat    = create_actor :bedroom_cat, x:520, y:345, layer: 11, action: :idle
+    # person = create_actor :bedroom_covers, x:305, y:265, layer: 11
+    # cat    = create_actor :bedroom_cat, x:520, y:345, layer: 11, action: :idle
     bg     = create_actor :bedroom_background_night, x:320, y:240, layer: 10
+
     moon   = create_actor :moon, x:160, y:80, layer: 2
     stars  = create_actor :starfield, x:320, y:240, layer: 1
 
@@ -13,29 +38,21 @@ define_stage :dream do
 
     # timing factors
     # TODO rename all these to _t
-    moon_remove_time     = 30_000
-    star_transition_lead = 15_000
+    moon_remove_time     = 3 # 30_000
+    star_transition_lead = 5 # 15_000
     galaxy_fade_time     =  5_000
+
+    # star trails
     trail_stop_time      = 12_400 + star_transition_lead
     trail_sustain_time   =  3_000 + trail_stop_time
     trail_release_time   =  8_000
-    prism_introduction_t = trail_sustain_time + trail_release_time
-    prism_sustain_t      = prism_introduction_t + 8_000
+
+    # This is the second set of prisms timing ... I don't want lines to overlap
+    prism_intro_delay    = trail_stop_time + 14_000
 
 
-    # I need programmatic drawing at this point.
-    # Hand-animating things that look like Math is annoying.
-    # timer_manager.add_timer 'asdf', 0 do
-    #   timer_manager.remove_timer 'asdf'
-    #   math = create_actor :math, x:250, y:250, layer: 9000
-    #   behavior_factory.add_behavior math, :sliding
-    #   moon.emit :slide, x:300, y:480, time: 5000
-    #   math.layer = 2
-    #   # require 'pry'; binding.pry
-    #   # a = 1
-    # end
 
-    # Timing
+    # Scene Events
     # -------------------------------------------------------------------------
     timer_manager.add_timer 'moon_slide', 0 do
       timer_manager.remove_timer 'moon_slide'
@@ -79,10 +96,19 @@ define_stage :dream do
       star_trails.emit :fade_out, trail_release_time
     end
 
-    timer_manager.add_timer 'prism', prism_introduction_t do
+    timer_manager.add_timer 'prism', trail_stop_time do
       timer_manager.remove_timer 'prism'
-      prism = create_actor :dream_prism, x:550, y:-20, layer: 2
-      tween = tween_manager.tween_properties prism, {x: 150, y:590}, 12_000, Tween::Sine::InOut
+      emit_prism({ x: 450, y: -110 })
+      emit_prism({ x: 700, y: -50 }, 12_500)
+      emit_prism({ x: 600, y: -120 }, 19_500)
+    end
+
+    timer_manager.add_timer 'moar_prisms', prism_intro_delay do
+      timer_manager.remove_timer 'moar_prisms'
+      emit_prism({ x: 455, y: -110 }, 13_000)
+      emit_prism({ x: 705, y: -50 }, 11_500)
+      emit_prism({ x: 605, y: -120 }, 18_500)
+      emit_prism({ x: 800, y: -140 }, 4_500)
     end
 
 

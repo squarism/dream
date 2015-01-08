@@ -3,6 +3,7 @@ APP_ROOT = "#{File.join(File.dirname(__FILE__),"..")}/"
 require 'yaml'
 require 'gamebox'
 require 'releasy'
+require 'texplay'
 
 Gamebox.configure do |config|
   config.config_path = APP_ROOT + "config/"
@@ -23,9 +24,9 @@ Gamebox.configure do |config|
   config.default_font_color = Color.argb(255, 244, 215, 227)
   config.default_font_size = 32
 
-  # config.stages = [:intro, :work, :close, :walk, :house, :bedroom_sitting, :bedroom_sleeping, :dream]
-  # config.stages = [:intro, :work, :close, :walk, :house, :bedroom_sitting]
-  config.stages = [:bedroom_sitting]
+  # config.stages = [:intro, :work, :close, :walk, :house, :bedroom_sitting, :dream, :wakeup]
+  # config.stages = [:intro, :work, :close, :walk, :house, :bedroom_sitting, :dream]
+  config.stages = [:dream]
 
   config.game_name = "Dream"
 end
@@ -38,4 +39,3 @@ require_all Dir.glob("{src,lib}/**/*.rb").reject{ |f| f.match("src/app.rb")}
 
 # Pixel art style.  At least they admit it's undocumented?  :|
 Gosu::enable_undocumented_retrofication
-
