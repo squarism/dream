@@ -17,25 +17,31 @@ serious refactoring problems.
 
 - Little person hair
 
+- Remove opts
+
+- Remove actor unused attributes
+
+- Add symbols (textures done) to work scene
+
+- Replace all behavior_factory with :tween_manager
+
+- ALL TODOS
+
 
 ## Dev Notes
+- Texplay 0.4.4.pre is required, doesn't compile with Ruby 2?
+
+- Had some weird drawing issues until I did an explicit alpha clear.
+But only on certain machines.  Texplay creates a really empty buffer I guess.
+
+
+## Art Notes
+
 Backgrounds should be:
 
 Width: 128 x Height 96 pixels
 Position them at x:320, y:240 with scale:5
 For 640x480 screen resolution.  They will fit perfectly.
-
-### Buffer Effects!
-
-Ooo... I should try this:
-
-texture = Gosu::Image.to_blob
-image = ChunkyPNG::Image.from_blob(texture)
-# Do effects with compass-magick?
-#   https://github.com/StanAngeloff/compass-magick/blob/master/lib/magick/functions/operations/effects.rb
-
-How to get back?  I don't know!  :)
-
 
 Bedroom dim:
 Saturation: -50%

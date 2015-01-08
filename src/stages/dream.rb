@@ -1,8 +1,7 @@
 define_stage :dream do
-  requires :behavior_factory, :actor_view_factory
+  requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
-    opts = args.first || {}
 
     person = create_actor :bedroom_covers, x:305, y:265, layer: 11
     cat    = create_actor :bedroom_cat, x:520, y:345, layer: 11, action: :idle
@@ -13,12 +12,15 @@ define_stage :dream do
     star_trails = nil
 
     # timing factors
+    # TODO rename all these to _t
     moon_remove_time     = 30_000
     star_transition_lead = 15_000
     galaxy_fade_time     =  5_000
-    trail_stop_time      = 12_800 + star_transition_lead
+    trail_stop_time      = 12_400 + star_transition_lead
     trail_sustain_time   =  3_000 + trail_stop_time
     trail_release_time   =  8_000
+    prism_introduction_t = trail_sustain_time + trail_release_time
+    prism_sustain_t      = prism_introduction_t + 8_000
 
 
     # I need programmatic drawing at this point.
@@ -76,6 +78,13 @@ define_stage :dream do
       behavior_factory.add_behavior star_trails, :fading
       star_trails.emit :fade_out, trail_release_time
     end
+
+    timer_manager.add_timer 'prism', prism_introduction_t do
+      timer_manager.remove_timer 'prism'
+      prism = create_actor :dream_prism, x:550, y:-20, layer: 2
+      tween = tween_manager.tween_properties prism, {x: 150, y:590}, 12_000, Tween::Sine::InOut
+    end
+
 
 
   end
