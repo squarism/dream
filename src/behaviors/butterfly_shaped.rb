@@ -4,7 +4,6 @@ define_behavior :butterfly_shaped do
   setup do
     actor.has_attribute :width, 64
     actor.has_attribute :height, 64
-    actor.has_attribute :trail, 1
   end
 
   remove do
