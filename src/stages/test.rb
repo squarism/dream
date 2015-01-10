@@ -3,7 +3,7 @@ define_stage :test do
 
   curtain_up do |*args|
 
-    rainbow_line_t      = 1500 #_000
+    rainbow_line_t      = 15_000
     rainbow_line_cycles = 4
 
     butterfly = create_actor :butterfly, x:150, y:150, layer: 9, rotation: 0
