@@ -127,7 +127,7 @@ define_stage :dream do
       behavior_factory.add_behavior galaxy_blank, :fading
       galaxy_blank.emit :fade_out, galaxy_fade_t
 
-      butterfly = create_actor :butterfly, x:0, y:280, layer: 1, rotation: 0
+      butterfly = create_actor :butterfly, x:0, y:280, layer: 3, rotation: 0
       tween_manager.tween_properties butterfly, {x: 550, y:160}, rainbow_line_t, Tween::Sine::InOut
 
       timer_manager.add_timer 'rainbow_ne', rainbow_line_t * 1 do
@@ -159,7 +159,20 @@ define_stage :dream do
     # TODO: wakeup sequence
     timer_manager.add_timer 'wakeup', wakeup_t do
       timer_manager.remove_timer 'wakeup'
-      moon   = create_actor :moon, x:160, y:80, layer: 2
+
+      # wakup is 19 frames of animation @ 200ms
+      wakeup = create_actor :wakeup, x:305, y:287, layer: 11
+      person.remove
+      timer_manager.add_timer 'stop_wakeup', 3_600 do
+        timer_manager.remove_timer 'stop_wakeup'
+
+        wakeup.animating = false
+        create_actor :curtain, duration_in_ms: 4000
+
+        timer_manager.add_timer 'all_done', 3_900 do
+          fire :next_stage  # end
+        end
+      end
     end
 
 
