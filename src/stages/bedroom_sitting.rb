@@ -8,8 +8,8 @@ define_stage :bedroom_sitting do
     create_actor :moon, x:160, y:80, layer: 2
 
     bedroom = create_actor :bedroom_background, x:320, y:240, layer: 10
-    person = create_actor :bedroom_sitting, x:305, y:265, layer: 11, action: :idle
-    cat = create_actor :bedroom_cat, x:520, y:345, layer: 11, action: :idle
+    person = create_actor :bedroom_sitting, x:305, y:287, layer: 11, action: :idle
+    cat = create_actor :bedroom_cat, x:520, y:367, layer: 11, action: :idle
 
     # idle breathe is 5 frames
     # two loops of breathing, then yawn
@@ -55,7 +55,7 @@ define_stage :bedroom_sitting do
     timer_manager.add_timer 'lay_in_bed', 34000 do
       timer_manager.remove_timer 'lay_in_bed'
       person.remove
-      create_actor :bedroom_covers, x:305, y:265, layer: 11
+      create_actor :bedroom_covers, x:305, y:287, layer: 11
     end
 
 

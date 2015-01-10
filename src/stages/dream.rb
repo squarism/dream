@@ -27,8 +27,8 @@ define_stage :dream do
 
   curtain_up do |*args|
 
-    # person = create_actor :bedroom_covers, x:305, y:265, layer: 11
-    # cat    = create_actor :bedroom_cat, x:520, y:345, layer: 11, action: :idle
+    person = create_actor :bedroom_covers, x:305, y:287, layer: 11
+    cat    = create_actor :bedroom_cat, x:520, y:367, layer: 11, action: :idle
     bg     = create_actor :bedroom_background_night, x:320, y:240, layer: 10
 
     moon   = create_actor :moon, x:160, y:80, layer: 2
@@ -119,11 +119,11 @@ define_stage :dream do
     end
 
 
-    timer_manager.add_timer 'rainbow_intro', 1000 do # #rainbow_intro_t do
+    timer_manager.add_timer 'rainbow_intro', rainbow_intro_t do
       timer_manager.remove_timer 'rainbow_intro'
 
-      # behavior_factory.add_behavior galaxy_blank, :fading
-      # galaxy_blank.emit :fade_out, galaxy_fade_time
+      behavior_factory.add_behavior galaxy_blank, :fading
+      galaxy_blank.emit :fade_out, galaxy_fade_time
 
       butterfly = create_actor :butterfly, x:0, y:280, layer: 1, rotation: 0
       tween_manager.tween_properties butterfly, {x: 550, y:160}, rainbow_line_t, Tween::Sine::InOut
