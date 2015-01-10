@@ -4,9 +4,9 @@ define_actor_view :butterfly_view do
     x = actor.x + x_offset
     y = actor.y + y_offset
 
-    offscreen_buffer = TexPlay::create_blank_image(screen.screen, screen.width, screen.height)
+    # offscreen_buffer = TexPlay::create_blank_image(screen.screen, screen.width, screen.height)
     # very important to clear the buffer explicitly, otherwise you get random texture memory
-    offscreen_buffer.clear color: :alpha
+    # offscreen_buffer.clear color: :alpha
 
     # ARGH ... can't fade the buffer with a clear screen wipe
     # offscreen_buffer.clear color: Gosu::Color.new(255, 125, 125, 125)
@@ -33,7 +33,7 @@ define_actor_view :butterfly_view do
         y1 = sstart[1] - (Gosu::offset_y(s[:rotation], actor.width/2))
         x2 = sstart[0] + (Gosu::offset_x(s[:rotation], actor.width/2))
         y2 = sstart[1] + (Gosu::offset_y(s[:rotation], actor.width/2))
-        offscreen_buffer.line x1, y1, x2, y2, color:shadow_color, thickness:actor.line_thickness
+        screen.draw_line x1, y1, x2, y2, shadow_color, actor.layer #, thickness:actor.line_thickness
     end
 
     # draw current
@@ -47,9 +47,9 @@ define_actor_view :butterfly_view do
     y1 = lstart[1] - (Gosu::offset_y(actor.rotation, actor.width/2))
     x2 = lstart[0] + (Gosu::offset_x(actor.rotation, actor.width/2))
     y2 = lstart[1] + (Gosu::offset_y(actor.rotation, actor.width/2))
-    offscreen_buffer.line x1, y1, x2, y2, color:actor.color_wheel, thickness:actor.line_thickness
+    screen.draw_line x1, y1, x2, y2, actor.color_wheel, actor.layer #, thickness:actor.line_thickness
 
-    offscreen_buffer.draw 0, 0, actor.layer
+    # offscreen_buffer.draw 0, 0, actor.layer
   end
 
 end
