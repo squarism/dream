@@ -63,7 +63,7 @@ define_stage :house do
       light.emit :fade_in, 3000
     end
 
-    timer_manager.add_timer 'shooting_star', 28_000 do
+    timer_manager.add_timer 'shooting_star', 30_000 do
       timer_manager.remove_timer 'shooting_star'
       star = create_actor :shooting_star, x:480, y:-90, layer: 1
       behavior_factory.add_behavior star, :sliding
@@ -71,6 +71,12 @@ define_stage :house do
       star.alpha = 160
       star.emit :slide, x:-220, y:viewport.height, time: 1500, style: Tween::Quad::InOut
     end
+
+    timer_manager.add_timer 'curtain', 34_000 do
+      timer_manager.remove_timer 'curtain'
+      create_actor :curtain, duration_in_ms: 4000, dir: :down
+    end
+
 
     timer_manager.add_timer 'all_done', 38000 do
       fire :next_stage
