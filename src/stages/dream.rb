@@ -169,7 +169,7 @@ define_stage :dream do
         wakeup.animating = false
         create_actor :curtain, duration_in_ms: 4000
 
-        timer_manager.add_timer 'all_done', 3_900 do
+        timer_manager.add_timer 'all_done', 5_900 do
           fire :next_stage  # end
         end
       end
