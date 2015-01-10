@@ -41,7 +41,8 @@ define_actor :fading_text do
     draw do |target, x_off, y_off, z|
       x = actor.x + x_off
       y = actor.y + y_off
-      color = Color.new(actor.alpha, 81, 141, 255)
+      color = actor.color
+      color.alpha = actor.alpha
       actor.font_style.font.draw actor.text, x, y, actor.layer, actor.font_style.x_scale, actor.font_style.y_scale, color
     end
   end
