@@ -3,7 +3,7 @@ define_behavior :color_rotating do
 
   setup do
     actor.has_attribute :color_wheel, Gosu::Color.new(0xffff0000)
-    actor.has_attribute :hue, 0
+    actor.has_attribute :hue, opts[:hue] || 0
     actor.has_attribute :hue_speed, opts[:hue_speed] || 0.5
 
     director.when :update do |time|
