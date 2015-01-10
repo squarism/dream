@@ -59,7 +59,7 @@ define_stage :dream do
     rainbow_intro_t      = prism_intro_delay
     rainbow_line_t       = 15_000
     rainbow_stop_t       = 30_000
-    wakeup_t             = 42_000 + moon_outro_t
+    wakeup_t             = 66_000 + moon_outro_t
 
 
     # Scene Events
