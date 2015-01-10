@@ -26,15 +26,15 @@ def start_parallax_actor(actor, time)
   actor.emit :slide, x:destination, y:actor.y, time: t, style: Tween::Linear
 end
 
-def spawn_parallax_actor(actor_name, system)
+def spawn_parallax_actor(actor_name, system, layer)
   spawn_x = system.first.x + (viewport.width * 2.0) - texture_overlap
-  create_actor(actor_name, x:spawn_x, y:280, layer: 3)
+  create_actor(actor_name, x:spawn_x, y:280, layer: layer)
 end
 
 # when first texture is halfway off the screen, spawn #3
-def respawn_parallax(actor_name, system, time)
+def respawn_parallax(actor_name, system, time, layer)
   if system.length < 3 && system.first.x < viewport.width / 2
-    actor = spawn_parallax_actor(actor_name, system)
+    actor = spawn_parallax_actor(actor_name, system, layer)
     start_parallax_actor(actor, time)
     system << actor
   end
@@ -60,8 +60,8 @@ define_stage :walk do
 
     # a painful parallax system
     director.when :update do |time|
-      respawn_parallax(:walk_foreground, streets, 45_000)
-      respawn_parallax(:walk_trees, trees, 75_000)
+      respawn_parallax(:walk_foreground, streets, 45_000, 3)
+      respawn_parallax(:walk_trees, trees, 75_000, 2)
     end
 
     # Walking Lady
