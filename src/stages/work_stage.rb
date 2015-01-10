@@ -4,13 +4,17 @@ define_stage :work do
   curtain_up do |*args|
     opts = args.first || {}
 
-    sound_manager.play_music :dream
+    # sound_manager.play_music :dream
 
     day_sky = create_actor :day_sky, x:320, y:240, layer: 0
     desk = create_actor :desk, x:330, y:226, layer:5
+    desk_night = nil
 
     sun = create_actor :sun, x:110, y:180, layer: 1
     library = create_actor :library, x:320, y:240, layer:2
+
+    # Timing
+    close_desk_t = 26_000
 
 
     timer_manager.add_timer 'sundown', 10 do
@@ -38,11 +42,18 @@ define_stage :work do
       day_sky.emit :fade_out, 25000
       desk_night = create_actor :desk_night, x:330, y:226, layer:4
       library_night = create_actor :library_night, x:320, y:240, layer:1
-      desk.emit :fade_out, 15000
-      library.emit :fade_out, 15000
+      desk.emit :fade_out, 14000
+      library.emit :fade_out, 14000
     end
 
-    timer_manager.add_timer 'all_done', 27000 do
+    timer_manager.add_timer 'close', close_desk_t do
+      timer_manager.remove_timer 'close'
+      desk_night.remove
+      desk = create_actor :desk_close, x:330, y:226, layer:5
+    end
+
+
+    timer_manager.add_timer 'all_done', close_desk_t + 4_000 do
       fire :next_stage
     end
 
