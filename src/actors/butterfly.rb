@@ -4,9 +4,9 @@ define_actor :butterfly do
     positioned
     layered
     butterfly_shaped
-    color_rotating hue_speed: 0.5
-    rotating rotation_speed: 0.5
-    trailing trails_to_render: 5
+    color_rotating hue_speed: 0.10
+    rotating rotation_speed: 0.25
+    trailing trails_to_render: 100
   end
 
 end

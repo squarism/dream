@@ -3,7 +3,7 @@ define_behavior :rotating do
 
   setup do
     actor.has_attribute :rotation, 0
-    actor.has_attribute :rotation_speed, 0.5
+    actor.has_attribute :rotation_speed, opts[:rotation_speed] || 0.5
 
     director.when :update do |time|
       actor.rotation += actor.rotation_speed
