@@ -86,7 +86,7 @@ define_stage :walk do
     end
 
     # maximum stage time is about 42 seconds
-    timer_manager.add_timer 'all_done', 44000 do
+    timer_manager.add_timer 'all_done', 42_300 do
       fire :next_stage
     end
 

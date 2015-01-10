@@ -4,7 +4,7 @@ define_stage :work do
   curtain_up do |*args|
     opts = args.first || {}
 
-    # sound_manager.play_music :dream
+    sound_manager.play_music :dream
 
     day_sky = create_actor :day_sky, x:320, y:240, layer: 0
     desk = create_actor :desk, x:330, y:226, layer:5
@@ -14,7 +14,7 @@ define_stage :work do
     library = create_actor :library, x:320, y:240, layer:2
 
     # Timing
-    close_desk_t = 26_000
+    close_desk_t = 25_200
 
 
     timer_manager.add_timer 'sundown', 10 do
