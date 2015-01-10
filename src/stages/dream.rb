@@ -43,6 +43,7 @@ define_stage :dream do
     moon_remove_time     = 35_000
     star_transition_lead = 15_000
     galaxy_fade_time     =  5_000
+    moon_intro_t          = 22_000
 
     # star trails
     trail_stop_time      = 12_400 + star_transition_lead
@@ -62,6 +63,7 @@ define_stage :dream do
     # Scene Events
     # -------------------------------------------------------------------------
     timer_manager.add_timer 'moon_slide', 100 do
+    timer_manager.add_timer 'moon_slide', moon_intro_t do
       timer_manager.remove_timer 'moon_slide'
       behavior_factory.add_behavior moon, :sliding
       moon.emit :slide, x:160, y:-380, time: moon_remove_time, style: Tween::Quad::InOut

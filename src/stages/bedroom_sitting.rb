@@ -58,8 +58,12 @@ define_stage :bedroom_sitting do
       create_actor :bedroom_covers, x:305, y:287, layer: 11
     end
 
-
-    timer_manager.add_timer 'all_done', 66_000 do
+    # This timing is very critical, if you change it,
+    # you have to consider the moon is animating but staying
+    # between scenes.  so you'd have to figure out the delta
+    # change in order to not make the moon "blink".  I would just
+    # leave this alone and change other timing.
+    timer_manager.add_timer 'all_done', 44_000 do
       fire :next_stage
     end
 
