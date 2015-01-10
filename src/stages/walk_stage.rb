@@ -1,36 +1,73 @@
+# flickering bug fix
+def texture_overlap
+  41
+end
+
+def spawn_point
+  viewport.width * 1.5 - texture_overlap
+end
+
+def parallax_system(actor_name, layer)
+  system = []
+  system << create_actor(actor_name, x:viewport.width / 2, y:280, layer: layer)
+  system << create_actor(actor_name, x:spawn_point, y:280, layer: layer)
+end
+
+def start_parallax_system(system, time)
+  system.each do |actor|
+    start_parallax_actor(actor, time)
+  end
+end
+
+def start_parallax_actor(actor, time)
+  destination = -viewport.width * 1.5
+  t = (actor.x - destination) * time / viewport.width
+  behavior_factory.add_behavior actor, :sliding
+  actor.emit :slide, x:destination, y:actor.y, time: t, style: Tween::Linear
+end
+
+def spawn_parallax_actor(actor_name, system)
+  spawn_x = system.first.x + (viewport.width * 2.0) - texture_overlap
+  create_actor(actor_name, x:spawn_x, y:280, layer: 3)
+end
+
+# when first texture is halfway off the screen, spawn #3
+def respawn_parallax(actor_name, system, time)
+  if system.length < 3 && system.first.x < viewport.width / 2
+    actor = spawn_parallax_actor(actor_name, system)
+    start_parallax_actor(actor, time)
+    system << actor
+  end
+
+  if system.first.x <= -viewport.width
+    dead = system.shift
+    dead.remove
+  end
+end
+
+
 define_stage :walk do
   requires :behavior_factory
 
   curtain_up do |*args|
-    opts = args.first || {}
-
     night_sky = create_actor :starfield, x:320, y:240, layer: 0
 
-    # Street background
-    street = create_actor :walk_foreground, x:320, y:280, layer: 3
-    next_street_start = 920
-    next_street = create_actor :walk_foreground, x:next_street_start, y:280, layer: 3
-    # start parallax
-    behavior_factory.add_behavior street, :sliding
-    behavior_factory.add_behavior next_street, :sliding
-    street.emit :slide, x:-320, y:280, time: 45000, style: Tween::Linear
-    next_street.emit :slide, x:next_street_start-640, y:280, time: 45000, style: Tween::Linear
+    streets = parallax_system(:walk_foreground, 3)
+    start_parallax_system(streets, 45_000)
 
-    # Tree background
-    trees = create_actor :walk_trees, x:320, y:300, layer: 2
-    next_trees_start = 920
-    next_trees = create_actor :walk_trees, x:next_trees_start, y:300, layer: 2
-    # start parallax
-    behavior_factory.add_behavior trees, :sliding
-    behavior_factory.add_behavior next_trees, :sliding
+    trees = parallax_system(:walk_trees, 2)
+    start_parallax_system(trees, 75_000)
 
-    trees.emit :slide, x:-260, y:300, time: 75000, style: Tween::Linear
-    next_trees.emit :slide, x:next_trees_start-640, y:300, time: 75000, style: Tween::Linear
+    # a painful parallax system
+    director.when :update do |time|
+      respawn_parallax(:walk_foreground, streets, 45_000)
+      respawn_parallax(:walk_trees, trees, 75_000)
+    end
 
     # Walking Lady
     person = create_actor :walk_person, x:-20, y:285, layer: 4
     behavior_factory.add_behavior person, :sliding
-    person.emit :slide, x:185, y:285, time: 36000, style: Tween::Linear
+    person.emit :slide, x:235, y:285, time: 44000, style: Tween::Linear
 
     # Lamps
     lamps = []
@@ -49,7 +86,7 @@ define_stage :walk do
     end
 
     # maximum stage time is about 42 seconds
-    timer_manager.add_timer 'all_done', 36000 do
+    timer_manager.add_timer 'all_done', 44000 do
       fire :next_stage
     end
 
