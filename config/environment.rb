@@ -24,8 +24,7 @@ Gamebox.configure do |config|
   config.default_font_color = Color.argb(255, 244, 215, 227)
   config.default_font_size = 32
 
-  # config.stages = [:intro, :work, :walk, :house, :bedroom_sitting, :dream]
-  config.stages = [:dream]
+  config.stages = [:intro, :work, :walk, :house, :bedroom_sitting, :dream]
 
   config.game_name = "Dream"
 end
