@@ -41,29 +41,38 @@ define_stage :house do
 
       little_person = create_actor :little_person, x:395, y:310, layer: 5
       behavior_factory.add_behavior little_person, :sliding
-      little_person.emit :slide, x:498, y:215, time: 6000, style: Tween::Quad::InOut
+      little_person.emit :slide, x:498, y:215, time: 8000, style: Tween::Quad::InOut
     end
 
-    timer_manager.add_timer 'door_open', 21000 do
+    timer_manager.add_timer 'door_open', 22000 do
       timer_manager.remove_timer 'door_open'
       open_door = create_actor :house_door_open, x:495, y:193, layer: 4
       little_person.remove
     end
 
-    timer_manager.add_timer 'door_close', 22000 do
+    timer_manager.add_timer 'door_close', 24000 do
       timer_manager.remove_timer 'door_close'
       open_door.remove
     end
 
-    timer_manager.add_timer 'light_on', 23800 do
+    timer_manager.add_timer 'light_on', 25800 do
       timer_manager.remove_timer 'light_on'
       light = create_actor :house_light, x:410, y:181, layer: 5
       behavior_factory.add_behavior light, :fading
       light.alpha = 0
-      light.emit :fade_in, 2000
+      light.emit :fade_in, 3000
     end
 
-    timer_manager.add_timer 'all_done', 36000 do
+    timer_manager.add_timer 'shooting_star', 28_000 do
+      timer_manager.remove_timer 'shooting_star'
+      star = create_actor :shooting_star, x:480, y:-90, layer: 1
+      behavior_factory.add_behavior star, :sliding
+      behavior_factory.add_behavior star, :fading
+      star.alpha = 160
+      star.emit :slide, x:-220, y:viewport.height, time: 1500, style: Tween::Quad::InOut
+    end
+
+    timer_manager.add_timer 'all_done', 38000 do
       fire :next_stage
     end
 
