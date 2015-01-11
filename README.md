@@ -6,13 +6,7 @@
 It really should be WXVGA (854x480).  This is going to cause
 serious refactoring problems.
 
-- Shade the lean animation.
-
 - Probably lots of shading to be done and played with.
-
-- Final timing?
-
-- Little person hair
 
 - Remove opts
 
