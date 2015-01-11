@@ -121,7 +121,6 @@ define_stage :dream do
       emit_prism({ x: 950, y: -140 }, 2_500)
     end
 
-
     timer_manager.add_timer 'rainbow_intro', rainbow_intro_t do
       timer_manager.remove_timer 'rainbow_intro'
 
@@ -157,7 +156,6 @@ define_stage :dream do
 
     end
 
-    # TODO: wakeup sequence
     timer_manager.add_timer 'wakeup', wakeup_t do
       timer_manager.remove_timer 'wakeup'
 
@@ -170,7 +168,7 @@ define_stage :dream do
         wakeup.animating = false
 
         # final fade out
-        curtain = create_actor :black, x:viewport.width/2, y:viewport.height/2, layer: 20
+        curtain = create_actor :black, x:viewport.width/2, y:viewport.height/2, layer: 9_999
         behavior_factory.add_behavior curtain, :fading
         curtain.alpha = 0
         curtain.emit :fade_in, 5_500
