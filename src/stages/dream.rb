@@ -60,6 +60,7 @@ define_stage :dream do
     rainbow_line_t       = 15_000
     rainbow_stop_t       = 30_000
     wakeup_t             = 66_000 + moon_outro_t
+    final_fade_t         = 5_500
 
 
     # Scene Events
@@ -160,17 +161,22 @@ define_stage :dream do
     timer_manager.add_timer 'wakeup', wakeup_t do
       timer_manager.remove_timer 'wakeup'
 
-      # wakup is 19 frames of animation @ 200ms
+      # wakeup is 19 frames of animation @ 200ms
       wakeup = create_actor :wakeup, x:305, y:287, layer: 11
       person.remove
       timer_manager.add_timer 'stop_wakeup', 3_600 do
         timer_manager.remove_timer 'stop_wakeup'
 
         wakeup.animating = false
-        create_actor :curtain, duration_in_ms: 4_000, dir: :down
 
-        timer_manager.add_timer 'all_done', 3_900 do
-          fire :next_stage  # end
+        # final fade out
+        curtain = create_actor :black, x:viewport.width/2, y:viewport.height/2, layer: 20
+        behavior_factory.add_behavior curtain, :fading
+        curtain.alpha = 0
+        curtain.emit :fade_in, 5_500
+
+        timer_manager.add_timer 'all_done', 6_900 do
+          fire :next_stage
         end
       end
     end
