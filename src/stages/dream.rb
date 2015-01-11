@@ -167,9 +167,9 @@ define_stage :dream do
         timer_manager.remove_timer 'stop_wakeup'
 
         wakeup.animating = false
-        create_actor :curtain, duration_in_ms: 4000
+        create_actor :curtain, duration_in_ms: 4_000, dir: :down
 
-        timer_manager.add_timer 'all_done', 5_900 do
+        timer_manager.add_timer 'all_done', 3_900 do
           fire :next_stage  # end
         end
       end
