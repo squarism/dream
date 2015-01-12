@@ -40,7 +40,7 @@ define_stage :dream do
     star_trails  = nil
 
     # timing factors
-    fall_asleep_t        =  5_000
+    fall_asleep_t        =  7_000
     moon_outro_t         = 24_000  # 24_000 is perfect
     moon_outro_speed     = 35_000
     moon_remove_t        = 24_000
@@ -67,10 +67,23 @@ define_stage :dream do
 
     # Scene Events
     # -------------------------------------------------------------------------
-    timer_manager.add_timer 'fall_asleep', moon_outro_t do
+    # blink once
+    timer_manager.add_timer 'blink', fall_asleep_t / 2 do
+      timer_manager.remove_timer 'blink'
+      face.action = :blink
+
+      timer_manager.add_timer 'blink_stop', 200 do
+        face.action = :idle
+      end
+    end
+
+    timer_manager.add_timer 'fall_asleep', fall_asleep_t do
       timer_manager.remove_timer 'fall_asleep'
+      tween_manager.tween_properties face, {x: face.x + 5, y:face.y}, fall_asleep_t, Tween::Quad::InOut
+
       behavior_factory.add_behavior face, :fading
       face.emit :fade_out, fall_asleep_t
+
       asleep_face = create_actor :bedroom_face, x:232, y:377, layer: 12, action: :sleep
       behavior_factory.add_behavior asleep_face, :fading
       asleep_face.alpha = 0
