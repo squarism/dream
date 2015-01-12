@@ -4,12 +4,12 @@ define_stage :bedroom_sitting do
   curtain_up do |*args|
     opts = args.first || {}
 
-    create_actor :starfield, x:320, y:240, layer: 1
-    create_actor :moon, x:160, y:80, layer: 2
+    create_actor :starfield, x:427, y:240, layer: 1
+    create_actor :moon, x:267, y:80, layer: 2
 
-    bedroom = create_actor :bedroom_background, x:320, y:240, layer: 10
-    person = create_actor :bedroom_sitting, x:305, y:287, layer: 11, action: :idle
-    cat = create_actor :bedroom_cat, x:520, y:367, layer: 11, action: :idle
+    bedroom = create_actor :bedroom_background, x:427, y:240, layer: 10
+    person = create_actor :bedroom_sitting, x:352, y:287, layer: 11, action: :idle
+    cat = create_actor :bedroom_cat, x:627, y:367, layer: 11, action: :idle
 
     # idle breathe is 5 frames
     # two loops of breathing, then yawn
@@ -45,7 +45,7 @@ define_stage :bedroom_sitting do
     # goes grayscale itself to look like the lights went off
     timer_manager.add_timer 'lights_off', 16_000 do
       timer_manager.remove_timer 'lights_off'
-      create_actor :bedroom_background_night, x:320, y:240, layer: 10
+      create_actor :bedroom_background_night, x:427, y:240, layer: 10
       bedroom.remove
     end
 
@@ -55,7 +55,7 @@ define_stage :bedroom_sitting do
     timer_manager.add_timer 'lay_in_bed', 20_800 do
       timer_manager.remove_timer 'lay_in_bed'
       person.remove
-      create_actor :bedroom_covers, x:305, y:287, layer: 11
+      create_actor :bedroom_covers, x:352, y:287, layer: 11
     end
 
     # This timing is very critical, if you change it,
