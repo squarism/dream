@@ -1,10 +1,5 @@
-# flickering bug fix
-def texture_overlap
-  41
-end
-
 def spawn_point
-  viewport.width * 1.5 - texture_overlap
+  viewport.width * 1.5
 end
 
 def parallax_system(actor_name, layer)
@@ -27,7 +22,7 @@ def start_parallax_actor(actor, time)
 end
 
 def spawn_parallax_actor(actor_name, system, layer)
-  spawn_x = system.first.x + (viewport.width * 2.0) - texture_overlap
+  spawn_x = system.first.x + (viewport.width * 2.0)
   create_actor(actor_name, x:spawn_x, y:280, layer: layer)
 end
 
@@ -50,7 +45,8 @@ define_stage :walk do
   requires :behavior_factory
 
   curtain_up do |*args|
-    night_sky = create_actor :starfield, x:320, y:240, layer: 0
+    center_x = 427
+    night_sky = create_actor :starfield, x:center_x, y:240, layer: 0
 
     streets = parallax_system(:walk_foreground, 3)
     start_parallax_system(streets, 45_000)
@@ -75,7 +71,9 @@ define_stage :walk do
     (0..3).each do |i|
       lamps << create_actor(:walk_lamp, x:(120 + (lamp_distance * i)), y:232, layer: 5)
       behavior_factory.add_behavior lamps[i], :sliding
-      lamps[i].emit :slide, x:(-520 + (lamp_distance * i)), y:232, time: 45000, style: Tween::Linear
+      fudge_factor = 115 # TODO: sliding math?  They move slightly too fast on the street.
+      lamp_destination = (-viewport.width + (lamp_distance * i)) + fudge_factor
+      lamps[i].emit :slide, x:lamp_destination, y:232, time: 45_000, style: Tween::Linear
     end
 
     timer_manager.add_timer 'fade_moon', 12000 do
