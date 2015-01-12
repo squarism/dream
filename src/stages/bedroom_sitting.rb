@@ -56,6 +56,17 @@ define_stage :bedroom_sitting do
       timer_manager.remove_timer 'lay_in_bed'
       person.remove
       create_actor :bedroom_covers, x:352, y:287, layer: 11
+      face = create_actor :bedroom_face, x:232, y:377, layer: 12, action: :idle
+
+      # start blinking loops
+      timer_manager.add_timer 'blink', 9_600 do
+        face.action = :blink
+      end
+
+      timer_manager.add_timer 'blink_stop', 9_800 do
+        face.action = :idle
+      end
+
     end
 
     # This timing is very critical, if you change it,

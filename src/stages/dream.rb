@@ -29,6 +29,7 @@ define_stage :dream do
 
     # Person and Cat actors
     person     = create_actor :bedroom_covers, x:352, y:287, layer: 11
+    face       = create_actor :bedroom_face, x:232, y:377, layer: 12, action: :idle
     cat        = create_actor :bedroom_cat, x:627, y:367, layer: 11, action: :idle
 
     # Backgrounds
@@ -39,7 +40,7 @@ define_stage :dream do
     star_trails  = nil
 
     # timing factors
-    # TODO rename all these to _t
+    fall_asleep_t        =  5_000
     moon_outro_t         = 24_000  # 24_000 is perfect
     moon_outro_speed     = 35_000
     moon_remove_t        = 24_000
@@ -56,7 +57,7 @@ define_stage :dream do
     # This is the second set of prisms timing ... I don't want lines to overlap
     prism_intro_delay    = trail_stop_t + 4_000
 
-    # the rainbow comes in sort of slowly so we don't need much delay
+    # the rainbow comes in sort of slowly so we can start it with the prism
     rainbow_intro_t      = prism_intro_delay
     rainbow_line_t       = 15_000
     rainbow_stop_t       = 30_000
@@ -66,6 +67,27 @@ define_stage :dream do
 
     # Scene Events
     # -------------------------------------------------------------------------
+    timer_manager.add_timer 'fall_asleep', moon_outro_t do
+      timer_manager.remove_timer 'fall_asleep'
+      behavior_factory.add_behavior face, :fading
+      face.emit :fade_out, fall_asleep_t
+      asleep_face = create_actor :bedroom_face, x:232, y:377, layer: 12, action: :sleep
+      behavior_factory.add_behavior asleep_face, :fading
+      asleep_face.alpha = 0
+      asleep_face.emit :fade_in, fall_asleep_t
+
+      timer_manager.add_timer 'face_fade', fall_asleep_t do
+        timer_manager.remove_timer 'face_fade'
+        asleep_face.emit :fade_out, fall_asleep_t
+      end
+
+      # I want to take his face ... off
+      timer_manager.add_timer 'face_off', fall_asleep_t * 2 do
+        timer_manager.remove_timer 'face_off'
+        asleep_face.remove
+      end
+    end
+
     timer_manager.add_timer 'moon_slide', moon_outro_t do
       timer_manager.remove_timer 'moon_slide'
       behavior_factory.add_behavior moon, :sliding

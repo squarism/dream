@@ -20,6 +20,24 @@
 
 - ALL TODOS
 
+- Create a crossfade actor helper method.  Don't know how.  Put in src?
+
+- Fix lamp pixel on shade.
+
+def crossfade(actor, new_actor_name, time)
+  behavior_factory.add_behavior actor, :fading
+  actor.emit :fade_out, fall_asleep_t
+  new_actor = create_actor new_actor_name, x:actor.x, y:actor.y, layer: actor.layer
+  behavior_factory.add_behavior new_actor, :fading
+  new_actor.emit :fade_int, time
+  new_actor
+end
+
+class Crossfader
+  construct_with :behavior_factory
+
+
+
 
 ## Dev Notes
 - Texplay 0.4.4.pre is required, doesn't compile with Ruby 2?
@@ -52,4 +70,6 @@ serious problems.
 
 854x480 doesn't divide right by our pixel scaling.  171x96
 Old center: 320  New center: 427
+
+Eyes: #336699
 
