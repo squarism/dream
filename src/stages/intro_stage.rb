@@ -5,7 +5,7 @@ define_stage :intro do
     # opts = args.first || {}
 
     gray = 90
-    center = 280
+    center = 387
 
     # pixel font doesn't do non-english characters that well
     i18n_font = "Tahoma"

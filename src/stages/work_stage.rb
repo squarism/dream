@@ -3,15 +3,16 @@ define_stage :work do
 
   curtain_up do |*args|
     opts = args.first || {}
+    center_x = 427
 
     sound_manager.play_music :dream
 
-    day_sky = create_actor :day_sky, x:320, y:240, layer: 0
-    desk = create_actor :desk, x:330, y:226, layer:5
+    day_sky = create_actor :day_sky, x:center_x, y:240, layer: 0
+    desk = create_actor :desk, x:center_x, y:226, layer:5
     desk_night = nil
 
     sun = create_actor :sun, x:110, y:180, layer: 1
-    library = create_actor :library, x:320, y:240, layer:2
+    library = create_actor :library, x:center_x, y:240, layer:2
 
     # Timing
     close_desk_t = 25_200
@@ -31,7 +32,7 @@ define_stage :work do
 
     timer_manager.add_timer 'nightfade', 15000 do
       timer_manager.remove_timer 'nightfade'
-      night_sky = create_actor :starfield, x:320, y:240, layer: -1
+      night_sky = create_actor :starfield, x:center_x, y:240, layer: -1
       behavior_factory.add_behavior night_sky, :fading
       night_sky.alpha = 0
       night_sky.emit :fade_in, 15000
@@ -40,8 +41,8 @@ define_stage :work do
     timer_manager.add_timer 'bring_in_night', 2000 do
       timer_manager.remove_timer 'bring_in_night'
       day_sky.emit :fade_out, 25000
-      desk_night = create_actor :desk_night, x:330, y:226, layer:4
-      library_night = create_actor :library_night, x:320, y:240, layer:1
+      desk_night = create_actor :desk_night, x:center_x, y:226, layer:4
+      library_night = create_actor :library_night, x:center_x, y:240, layer:1
       desk.emit :fade_out, 14000
       library.emit :fade_out, 14000
     end
@@ -49,7 +50,7 @@ define_stage :work do
     timer_manager.add_timer 'close', close_desk_t do
       timer_manager.remove_timer 'close'
       desk_night.remove
-      desk = create_actor :desk_close, x:330, y:226, layer:5
+      desk = create_actor :desk_close, x:center_x, y:226, layer:5
     end
 
 

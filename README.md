@@ -2,9 +2,7 @@
 
 ## TODO
 
-- The project started as VGA (640x480) for no good reason.
-It really should be WXVGA (854x480).  This is going to cause
-serious refactoring problems.
+- Widescreen!  Aaaah!
 
 - Probably lots of shading to be done and played with.
 
@@ -15,6 +13,10 @@ serious refactoring problems.
 - Add symbols (textures done) to work scene
 
 - Replace all behavior_factory with :tween_manager
+
+- Add moon craters
+
+- Add lady falling sleep eyes
 
 - ALL TODOS
 
@@ -37,3 +39,17 @@ For 640x480 screen resolution.  They will fit perfectly.
 Bedroom dim:
 Saturation: -50%
 Lightness: -80%
+
+Nighttime dim (library):
+Colorize - Pixelmator
+Saturation: 55%
+Lightness: -45%
+
+
+The project started as VGA (640x480) for no good reason.
+It really should be WXVGA (854x480).  This is going to cause
+serious problems.
+
+854x480 doesn't divide right by our pixel scaling.  171x96
+Old center: 320  New center: 427
+
