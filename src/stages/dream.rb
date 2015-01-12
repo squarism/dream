@@ -11,10 +11,8 @@ def create_prism_path origin
 end
 
 def emit_prism(origin, time=4_000)
-  # require 'pry'; binding.pry
   path = create_prism_path origin
   prism = create_actor :prism, x:path[:x1], y:path[:y1], layer: 2
-  # prism = create_actor :dream_prism, x:path[:x1], y:path[:y1], layer: 2
   tween = tween_manager.tween_properties prism, {x: path[:x2], y:path[:y2]}, time, Tween::Linear
   timer_manager.add_timer "kill_prism_#{prism.object_id}", time do
     prism.remove

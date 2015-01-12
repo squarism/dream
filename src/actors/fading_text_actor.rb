@@ -20,18 +20,11 @@ define_actor :fading_text do
 
       font_style = font_style_factory.build actor.font_name, actor.font_size, actor.color
       actor.has_attributes font_style: font_style
-
-      # actor.when :fade_out do
-      #   puts "actor got fade_out"
-      #   require 'pry'; binding.pry
-      #   actor.fade_out
-      # end
     end
 
     helpers do
       def remove
         actor.unsubscribe_all self
-        # timer_manager.remove_timer tick_timer_name
       end
     end
 
