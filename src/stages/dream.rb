@@ -27,15 +27,16 @@ define_stage :dream do
 
   curtain_up do |*args|
 
-    person = create_actor :bedroom_covers, x:305, y:287, layer: 11
-    cat    = create_actor :bedroom_cat, x:520, y:367, layer: 11, action: :idle
-    bg     = create_actor :bedroom_background_night, x:320, y:240, layer: 10
+    # Person and Cat actors
+    person     = create_actor :bedroom_covers, x:352, y:287, layer: 11
+    cat        = create_actor :bedroom_cat, x:627, y:367, layer: 11, action: :idle
 
-    moon   = create_actor :moon, x:160, y:80, layer: 2
-    stars  = create_actor :starfield, x:320, y:240, layer: 1
-
+    # Backgrounds
+    bg           = create_actor :bedroom_background_night, x:427, y:240, layer: 10
+    moon         = create_actor :moon, x:267, y:80, layer: 2
+    stars        = create_actor :starfield, x:427, y:240, layer: 1
     galaxy_blank = nil
-    star_trails = nil
+    star_trails  = nil
 
     # timing factors
     # TODO rename all these to _t
@@ -68,7 +69,7 @@ define_stage :dream do
     timer_manager.add_timer 'moon_slide', moon_outro_t do
       timer_manager.remove_timer 'moon_slide'
       behavior_factory.add_behavior moon, :sliding
-      moon.emit :slide, x:160, y:-350, time: moon_outro_speed, style: Tween::Quad::InOut
+      moon.emit :slide, x:267, y:-350, time: moon_outro_speed, style: Tween::Quad::InOut
 
       timer_manager.add_timer 'moon_remove', moon_remove_t do
         timer_manager.remove_timer 'moon_remove'
@@ -78,7 +79,7 @@ define_stage :dream do
 
     timer_manager.add_timer 'star_switch', star_trans_lead_t do
       timer_manager.remove_timer 'star_switch'
-      galaxy_blank  = create_actor :starfield_galaxy_blank, x:320, y:240, layer: 0
+      galaxy_blank  = create_actor :starfield_galaxy_blank, x:427, y:240, layer: 0
       behavior_factory.add_behavior galaxy_blank, :fading
       behavior_factory.add_behavior stars, :fading
       galaxy_blank.emit :fade_in, galaxy_fade_t / 4
@@ -92,7 +93,7 @@ define_stage :dream do
 
     timer_manager.add_timer 'star_trails', star_trans_lead_t do
       timer_manager.remove_timer 'star_trails'
-      star_trails = create_actor :star_trails, x:320, y:320, layer: 1
+      star_trails = create_actor :star_trails, x:427, y:320, layer: 1
     end
 
     timer_manager.add_timer 'trail_stop', trail_stop_t do
@@ -108,17 +109,17 @@ define_stage :dream do
 
     timer_manager.add_timer 'prism', trail_stop_t do
       timer_manager.remove_timer 'prism'
-      emit_prism({ x: 450, y: -110 })
-      emit_prism({ x: 700, y: -50 }, 6_500)
-      emit_prism({ x: 600, y: -120 }, 8_500)
+      emit_prism({ x: 557, y: -110 })
+      emit_prism({ x: 807, y: -50 },  6_500)
+      emit_prism({ x: 707, y: -120 }, 8_500)
     end
 
     timer_manager.add_timer 'moar_prisms', prism_intro_delay do
       timer_manager.remove_timer 'moar_prisms'
-      emit_prism({ x: 455, y: -110 }, 6_000)
-      emit_prism({ x: 705, y: -50 }, 5_500)
-      emit_prism({ x: 605, y: -120 }, 7_500)
-      emit_prism({ x: 950, y: -140 }, 2_500)
+      emit_prism({ x: 562,  y: -110 }, 6_000)
+      emit_prism({ x: 812,  y: -50 },  5_500)
+      emit_prism({ x: 712,  y: -120 }, 7_500)
+      emit_prism({ x: 1057, y: -140 }, 2_500)
     end
 
     timer_manager.add_timer 'rainbow_intro', rainbow_intro_t do
@@ -128,18 +129,18 @@ define_stage :dream do
       galaxy_blank.emit :fade_out, galaxy_fade_t
 
       butterfly = create_actor :butterfly, x:0, y:280, layer: 3, rotation: 0
-      tween_manager.tween_properties butterfly, {x: 550, y:160}, rainbow_line_t, Tween::Sine::InOut
+      tween_manager.tween_properties butterfly, {x: 657, y:160}, rainbow_line_t, Tween::Sine::InOut
 
       timer_manager.add_timer 'rainbow_ne', rainbow_line_t * 1 do
-        tween_manager.tween_properties butterfly, {x: 550, y:-80}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x: 657, y:-80}, rainbow_line_t, Tween::Sine::InOut
       end
 
       timer_manager.add_timer 'rainbow_nw', rainbow_line_t * 2 do
-        tween_manager.tween_properties butterfly, {x: 240, y:90}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x: 347, y:90}, rainbow_line_t, Tween::Sine::InOut
       end
 
       timer_manager.add_timer 'rainbow_sw', rainbow_line_t * 3 do
-        tween_manager.tween_properties butterfly, {x: 340, y:140}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x: 447, y:140}, rainbow_line_t, Tween::Sine::InOut
       end
 
       timer_manager.add_timer 'stop_rainbow', rainbow_stop_t do
@@ -160,7 +161,7 @@ define_stage :dream do
       timer_manager.remove_timer 'wakeup'
 
       # wakeup is 19 frames of animation @ 200ms
-      wakeup = create_actor :wakeup, x:305, y:287, layer: 11
+      wakeup = create_actor :wakeup, x:412, y:287, layer: 11
       person.remove
       timer_manager.add_timer 'stop_wakeup', 3_600 do
         timer_manager.remove_timer 'stop_wakeup'
