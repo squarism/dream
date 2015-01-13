@@ -115,14 +115,14 @@ define_stage :dream do
       galaxy_blank  = create_actor :starfield_galaxy_blank, x:427, y:240, layer: 0
       behavior_factory.add_behavior galaxy_blank, :fading
       behavior_factory.add_behavior stars, :fading
-      galaxy_blank.emit :fade_in, galaxy_fade_t / 4
-      stars.emit :fade_out, galaxy_fade_t
+      galaxy_blank.emit :fade_in, galaxy_fade_t / 2
+      stars.emit :fade_out, galaxy_fade_t / 4
     end
 
-    timer_manager.add_timer 'stars_remove', star_remove_t do
-      timer_manager.remove_timer 'stars_remove'
-      stars.remove
-    end
+    # timer_manager.add_timer 'stars_remove', star_remove_t do
+    #   timer_manager.remove_timer 'stars_remove'
+    #   stars.remove
+    # end
 
     timer_manager.add_timer 'star_trails', star_trans_lead_t do
       timer_manager.remove_timer 'star_trails'
@@ -196,6 +196,8 @@ define_stage :dream do
       # wakeup is 19 frames of animation @ 200ms
       wakeup = create_actor :wakeup, x:412, y:287, layer: 11
       person.remove
+      stars.emit :fade_in, 3_000
+
       timer_manager.add_timer 'stop_wakeup', 3_600 do
         timer_manager.remove_timer 'stop_wakeup'
 
@@ -207,7 +209,7 @@ define_stage :dream do
         curtain.alpha = 0
         curtain.emit :fade_in, 5_500
 
-        timer_manager.add_timer 'all_done', 6_900 do
+        timer_manager.add_timer 'all_done', 7_500 do
           fire :next_stage
         end
       end
