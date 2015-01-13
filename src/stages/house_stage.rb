@@ -56,9 +56,9 @@ define_stage :house do
       open_door.remove
     end
 
-    timer_manager.add_timer 'light_on', 25800 do
+    timer_manager.add_timer 'light_on', 25_800 do
       timer_manager.remove_timer 'light_on'
-      light = create_actor :house_light, x:517, y:181, layer: 5
+      light = create_actor :house_light, x:515, y:180, layer: 5
       behavior_factory.add_behavior light, :fading
       light.alpha = 0
       light.emit :fade_in, 3000
