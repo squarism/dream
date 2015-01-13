@@ -5,7 +5,7 @@
 define_actor :black do
 
   has_behaviors do
-    graphical
+    graphical scale: 5
     positioned
     layered
   end
