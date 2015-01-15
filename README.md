@@ -4,7 +4,7 @@ Dream is a music video done in Ruby with gamebox.  Everything is original, be ki
 
 ![image](https://raw.githubusercontent.com/squarism/dream/images/images/dream_02.png)
 
-(I will have a video published soon so you can just watch it.)
+[Video on Vimeo](https://vimeo.com/116836454)
 
 ## TODO
 
