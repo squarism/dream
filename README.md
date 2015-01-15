@@ -1,4 +1,4 @@
-# Dream
+    # Dream
 
 Dream is a music video done in Ruby with gamebox.  Everything is original, be kind.  :)
 
@@ -22,17 +22,18 @@ Dream is a music video done in Ruby with gamebox.  Everything is original, be ki
 
 - Create a crossfade actor helper method.  Don't know how.  Put in src?
 
-def crossfade(actor, new_actor_name, time)
-  behavior_factory.add_behavior actor, :fading
-  actor.emit :fade_out, fall_asleep_t
-  new_actor = create_actor new_actor_name, x:actor.x, y:actor.y, layer: actor.layer
-  behavior_factory.add_behavior new_actor, :fading
-  new_actor.emit :fade_int, time
-  new_actor
-end
 
-class Crossfader
-  construct_with :behavior_factory
+      def crossfade(actor, new_actor_name, time)
+        behavior_factory.add_behavior actor, :fading
+        actor.emit :fade_out, fall_asleep_t
+        new_actor = create_actor new_actor_name, x:actor.x, y:actor.y, layer: actor.layer
+        behavior_factory.add_behavior new_actor, :fading
+        new_actor.emit :fade_int, time
+        new_actor
+      end
+
+      class Crossfader
+        construct_with :behavior_factory
 
 
 
