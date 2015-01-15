@@ -8,7 +8,8 @@ define_stage :house do
     # backgrounds
     create_actor :starfield, x:center_x, y:240, layer: 0
     create_actor :moon, x:60, y:100, layer: 1
-    create_actor :house_background, x:center_x, y:240, layer: 2
+    create_actor :walk_grass_bg, x:center_x, y:280, layer: 2
+    create_actor :house_background, x:center_x, y:240, layer: 3
     create_actor :house_grass, x:700, y:340, layer: 6
     create_actor :walk_lamp, x:233, y:193, layer: 7
 
@@ -16,7 +17,7 @@ define_stage :house do
     open_door = nil
 
     # lady
-    person = create_actor :walk_person, x:167, y:245, layer: 3
+    person = create_actor :walk_person, x:167, y:245, layer: 4
     behavior_factory.add_behavior person, :sliding
     person.emit :slide, x:352, y:245, time: 8000, style: Tween::Linear
 
@@ -58,7 +59,7 @@ define_stage :house do
 
     timer_manager.add_timer 'light_on', 25_800 do
       timer_manager.remove_timer 'light_on'
-      light = create_actor :house_light, x:515, y:180, layer: 5
+      light = create_actor :house_light, x:515, y:180, layer: 6
       behavior_factory.add_behavior light, :fading
       light.alpha = 0
       light.emit :fade_in, 3000

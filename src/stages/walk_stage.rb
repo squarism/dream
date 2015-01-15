@@ -47,21 +47,23 @@ define_stage :walk do
   curtain_up do |*args|
     center_x = 427
     night_sky = create_actor :starfield, x:center_x, y:240, layer: 0
+    grass = create_actor :walk_grass_bg, x:center_x, y:280, layer: 2
 
-    streets = parallax_system(:walk_foreground, 3)
+    streets = parallax_system(:walk_foreground, 4)
     start_parallax_system(streets, 45_000)
 
-    trees = parallax_system(:walk_trees, 2)
+    trees = parallax_system(:walk_trees, 3)
     start_parallax_system(trees, 75_000)
+
 
     # a painful parallax system
     director.when :update do |time|
-      respawn_parallax(:walk_foreground, streets, 45_000, 3)
-      respawn_parallax(:walk_trees, trees, 75_000, 2)
+      respawn_parallax(:walk_foreground, streets, 45_000, 4)
+      respawn_parallax(:walk_trees, trees, 75_000, 3)
     end
 
     # Walking Lady
-    person = create_actor :walk_person, x:-20, y:285, layer: 4
+    person = create_actor :walk_person, x:-20, y:285, layer: 10
     behavior_factory.add_behavior person, :sliding
     person.emit :slide, x:235, y:285, time: 44000, style: Tween::Linear
 
@@ -69,7 +71,7 @@ define_stage :walk do
     lamps = []
     lamp_distance = 440
     (0..3).each do |i|
-      lamps << create_actor(:walk_lamp, x:(120 + (lamp_distance * i)), y:232, layer: 5)
+      lamps << create_actor(:walk_lamp, x:(120 + (lamp_distance * i)), y:232, layer: 11)
       behavior_factory.add_behavior lamps[i], :sliding
       fudge_factor = 115 # TODO: sliding math?  They move slightly too fast on the street.
       lamp_destination = (-viewport.width + (lamp_distance * i)) + fudge_factor
