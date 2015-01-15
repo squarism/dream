@@ -1,8 +1,12 @@
 # Dream
 
-## TODO
+Dream is a music video done in Ruby with gamebox.  Everything is original, be kind.  :)
 
-- Widescreen!  Aaaah!
+![image](https://raw.githubusercontent.com/squarism/dream/images/images/dream_02.png)
+
+(I will have a video published soon so you can just watch it.)
+
+## TODO
 
 - Probably lots of shading to be done and played with.
 
@@ -14,15 +18,9 @@
 
 - Replace all behavior_factory with :tween_manager
 
-- Add moon craters
-
-- Add lady falling sleep eyes
-
 - ALL TODOS
 
 - Create a crossfade actor helper method.  Don't know how.  Put in src?
-
-- Fix lamp pixel on shade.
 
 def crossfade(actor, new_actor_name, time)
   behavior_factory.add_behavior actor, :fading
