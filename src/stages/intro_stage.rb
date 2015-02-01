@@ -4,17 +4,26 @@ define_stage :intro do
   curtain_up do |*args|
     # opts = args.first || {}
 
-    gray = 90
+    gray = Color.new(255, 90, 90, 90)
     center = 387
 
     # pixel font doesn't do non-english characters that well
     i18n_font = "Tahoma"
 
-    en = create_actor :fading_text, text: "DREAM", x: center, y:150
-    ko = create_actor :fading_text, text: "꿈", x: center, y:190, font_size: 24, color: Color.new(255, gray, gray, gray), font_name: i18n_font
-    es = create_actor :fading_text, text: "sueño", x: center, y:215, font_size: 16, color: Color.new(255, gray, gray, gray), font_name: i18n_font
-    ar = create_actor :fading_text, text: "حلم", x: center, y:230, font_size: 24, color: Color.new(255, gray, gray, gray), font_name: i18n_font
-    jp = create_actor :fading_text, text: "夢", x: center, y:255, font_size: 24, color: Color.new(255, gray, gray, gray), font_name: i18n_font
+    en = create_actor :fading_text, text: "DREAM",
+      x:center, y:150
+
+    ko = create_actor :fading_text, text: "꿈",
+      x:center, y:190, font_size: 24, color:gray, font_name: i18n_font
+
+    es = create_actor :fading_text, text: "sueño",
+      x:center, y:215, font_size: 16, color:gray, font_name: i18n_font
+
+    ar = create_actor :fading_text, text: "حلم",
+      x:center, y:230, font_size: 24, color:gray, font_name: i18n_font
+
+    jp = create_actor :fading_text, text: "夢",
+      x:center, y:255, font_size: 24, color:gray, font_name: i18n_font
 
 
     fade_out_delay_t = 3500
@@ -28,8 +37,7 @@ define_stage :intro do
       jp.emit :fade_out, fade_out_t
       ar.emit :fade_out, fade_out_t
 
-      behavior_factory.add_behavior en, :sliding
-      en.emit :slide, x:en.x, y:en.y + 10, time: fade_out_t
+      tween_manager.tween_properties en, { x:en.x, y:en.y + 10 }, fade_out_t, Tween::Quad::InOut
     end
 
     timer_manager.add_timer 'all_done', fade_out_delay_t + fade_out_t do
