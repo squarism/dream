@@ -2,7 +2,6 @@ define_stage :house do
   requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
-    opts = args.first || {}
     center_x = 427
 
     # backgrounds

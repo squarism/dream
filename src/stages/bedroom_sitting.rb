@@ -2,8 +2,6 @@ define_stage :bedroom_sitting do
   requires :behavior_factory
 
   curtain_up do |*args|
-    opts = args.first || {}
-
     create_actor :starfield, x:427, y:240, layer: 1
     create_actor :moon, x:267, y:80, layer: 2
 

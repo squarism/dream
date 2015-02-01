@@ -2,8 +2,6 @@ define_stage :intro do
   requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
-    # opts = args.first || {}
-
     gray = Color.new(255, 90, 90, 90)
     center = 387
 

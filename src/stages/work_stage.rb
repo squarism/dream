@@ -21,7 +21,6 @@ define_stage :work do
   requires :behavior_factory, :sound_manager, :tween_manager
 
   curtain_up do |*args|
-    opts = args.first || {}
     center_x = 427
 
     sound_manager.play_music :dream
