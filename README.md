@@ -1,4 +1,4 @@
-    # Dream
+# Dream
 
 Dream is a music video done in Ruby with gamebox.  Everything is original, be kind.  :)
 
@@ -13,10 +13,6 @@ Dream is a music video done in Ruby with gamebox.  Everything is original, be ki
 - Remove opts
 
 - Remove actor unused attributes
-
-- Add symbols (textures done) to work scene
-
-- Replace all behavior_factory with :tween_manager
 
 - ALL TODOS
 
@@ -34,8 +30,6 @@ Dream is a music video done in Ruby with gamebox.  Everything is original, be ki
 
       class Crossfader
         construct_with :behavior_factory
-
-
 
 
 ## Dev Notes
