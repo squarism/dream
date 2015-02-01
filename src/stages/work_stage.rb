@@ -9,7 +9,7 @@ def emit_object(object_name, origin, time=4_000, layer=10, &block)
   destination = block.call
   path = create_path origin, destination
   particle = create_actor object_name, x:path[:x1], y:path[:y1], layer: layer
-  tween = tween_manager.tween_properties particle, {x: path[:x2], y:path[:y2]}, time, Tween::Linear
+  tween = tween_manager.tween_properties particle, { x:path[:x2], y:path[:y2] }, time, Tween::Linear
   behavior_factory.add_behavior particle, :fading
   particle.emit :fade_out, time
   timer_manager.add_timer "kill_particle_#{particle.object_id}", time + 200 do
@@ -44,22 +44,22 @@ define_stage :work do
     # because of timing and repeatability of recording videos and demos.
     timer_manager.add_timer 'symbol01', 3_000 do
       timer_manager.remove_timer 'symbol01'
-      emit_object(:symbol01, {x:320, y:250}) do
-        { x: 0, y: -100 }
+      emit_object(:symbol01, { x:320, y:250 }) do
+        { x:0, y:-100 }
       end
     end
 
     timer_manager.add_timer 'symbol02', 7_000 do
       timer_manager.remove_timer 'symbol02'
-      emit_object(:symbol02, {x:480, y:200}) do
-        { x: 0, y: -120 }
+      emit_object(:symbol02, { x:480, y:200 }) do
+        { x:0, y:-120 }
       end
     end
 
     timer_manager.add_timer 'symbol03', 12_000 do
       timer_manager.remove_timer 'symbol03'
-      emit_object(:symbol03, {x:565, y:180}) do
-        { x: 0, y: -150 }
+      emit_object(:symbol03, { x:565, y:180 }) do
+        { x:0, y:-150 }
       end
     end
 
@@ -69,8 +69,7 @@ define_stage :work do
     # ----------------------------------------------------------------
     timer_manager.add_timer 'sundown', 10 do
       timer_manager.remove_timer 'sundown'
-      behavior_factory.add_behavior sun, :sliding
-      sun.emit :slide, x:110, y:280, time: 20_000, style: Tween::Linear
+      tween_manager.tween_properties sun, { x:110, y:280 }, 20_000, Tween::Linear
     end
 
     timer_manager.add_timer 'sunfade', 5000 do

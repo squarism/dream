@@ -1,10 +1,10 @@
 # used for emitting prisms
 # TODO: perhaps this could be a particle system instead
-# create_prism_path { x: 100, y: 200 }
+# create_prism_path { x:100, y:200 }
 # returns a new path with a destination point for tweening
-#   { x1: 100, y1: 200, x2: ..., y2: ... }
+#   { x1:100, y1:200, x2: ..., y2: ... }
 def create_prism_path origin
-  path = { x1: origin[:x], y1: origin[:y] }
+  path = { x1:origin[:x], y1:origin[:y] }
   x2 = path[:x1] - 600
   y2 = path[:y1] + 600
   path.merge x2: x2, y2: y2
@@ -13,7 +13,7 @@ end
 def emit_prism(origin, time=4_000)
   path = create_prism_path origin
   prism = create_actor :prism, x:path[:x1], y:path[:y1], layer: 2
-  tween = tween_manager.tween_properties prism, {x: path[:x2], y:path[:y2]}, time, Tween::Linear
+  tween = tween_manager.tween_properties prism, {x:path[:x2], y:path[:y2]}, time, Tween::Linear
   timer_manager.add_timer "kill_prism_#{prism.object_id}", time do
     prism.remove
   end
@@ -77,7 +77,7 @@ define_stage :dream do
 
     timer_manager.add_timer 'fall_asleep', fall_asleep_t do
       timer_manager.remove_timer 'fall_asleep'
-      tween_manager.tween_properties face, {x: face.x + 5, y:face.y}, fall_asleep_t, Tween::Quad::InOut
+      tween_manager.tween_properties face, { x:face.x + 5, y:face.y }, fall_asleep_t, Tween::Quad::InOut
 
       behavior_factory.add_behavior face, :fading
       face.emit :fade_out, fall_asleep_t
@@ -101,8 +101,7 @@ define_stage :dream do
 
     timer_manager.add_timer 'moon_slide', moon_outro_t do
       timer_manager.remove_timer 'moon_slide'
-      behavior_factory.add_behavior moon, :sliding
-      moon.emit :slide, x:267, y:-350, time: moon_outro_speed, style: Tween::Quad::InOut
+      tween_manager.tween_properties moon, { x:267, y:-350 }, moon_outro_speed, Tween::Quad::InOut
 
       timer_manager.add_timer 'moon_remove', moon_remove_t do
         timer_manager.remove_timer 'moon_remove'
@@ -142,17 +141,17 @@ define_stage :dream do
 
     timer_manager.add_timer 'prism', trail_stop_t do
       timer_manager.remove_timer 'prism'
-      emit_prism({ x: 557, y: -110 })
-      emit_prism({ x: 807, y: -50 },  6_500)
-      emit_prism({ x: 707, y: -120 }, 8_500)
+      emit_prism({ x:557, y:-110 })
+      emit_prism({ x:807, y:-50  }, 6_500)
+      emit_prism({ x:707, y:-120 }, 8_500)
     end
 
     timer_manager.add_timer 'moar_prisms', prism_intro_delay do
       timer_manager.remove_timer 'moar_prisms'
-      emit_prism({ x: 562,  y: -110 }, 6_000)
-      emit_prism({ x: 812,  y: -50 },  5_500)
-      emit_prism({ x: 712,  y: -120 }, 7_500)
-      emit_prism({ x: 1057, y: -140 }, 2_500)
+      emit_prism({ x:562,  y:-110 }, 6_000)
+      emit_prism({ x:812,  y:-50  }, 5_500)
+      emit_prism({ x:712,  y:-120 }, 7_500)
+      emit_prism({ x:1057, y:-140 }, 2_500)
     end
 
     timer_manager.add_timer 'rainbow_intro', rainbow_intro_t do
@@ -162,18 +161,18 @@ define_stage :dream do
       galaxy_blank.emit :fade_out, galaxy_fade_t
 
       butterfly = create_actor :butterfly, x:0, y:280, layer: 3, rotation: 0
-      tween_manager.tween_properties butterfly, {x: 657, y:160}, rainbow_line_t, Tween::Sine::InOut
+      tween_manager.tween_properties butterfly, {x:657, y:160}, rainbow_line_t, Tween::Sine::InOut
 
       timer_manager.add_timer 'rainbow_ne', rainbow_line_t * 1 do
-        tween_manager.tween_properties butterfly, {x: 657, y:-80}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x:657, y:-80}, rainbow_line_t, Tween::Sine::InOut
       end
 
       timer_manager.add_timer 'rainbow_nw', rainbow_line_t * 2 do
-        tween_manager.tween_properties butterfly, {x: 347, y:90}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x:347, y:90}, rainbow_line_t, Tween::Sine::InOut
       end
 
       timer_manager.add_timer 'rainbow_sw', rainbow_line_t * 3 do
-        tween_manager.tween_properties butterfly, {x: 447, y:140}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x:447, y:140}, rainbow_line_t, Tween::Sine::InOut
       end
 
       timer_manager.add_timer 'stop_rainbow', rainbow_stop_t do
@@ -181,7 +180,7 @@ define_stage :dream do
         timer_manager.remove_timer 'rainbow_ne'
         timer_manager.remove_timer 'rainbow_nw'
         timer_manager.remove_timer 'rainbow_sw'
-        tween_manager.tween_properties butterfly, {x: -1000, y:-1000}, rainbow_line_t, Tween::Sine::InOut
+        tween_manager.tween_properties butterfly, {x:-1000, y:-1000}, rainbow_line_t, Tween::Sine::InOut
 
         timer_manager.add_timer 'remove_rainbow', rainbow_line_t do
           timer_manager.remove_timer 'remove_rainbow'

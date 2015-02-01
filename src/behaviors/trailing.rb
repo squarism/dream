@@ -4,7 +4,7 @@ define_behavior :trailing do
     actor.has_attributes trails: [], trails_to_render: opts[:trails_to_render]
 
     timer_manager.add_timer timer_name, 100 do
-      new_trail = {x: actor.x, y: actor.y, rotation: actor.rotation, hue:actor.hue}
+      new_trail = { x:actor.x, y:actor.y, rotation:actor.rotation, hue:actor.hue }
       actor.trails << new_trail
       actor.trails.shift if actor.trails.size > actor.trails_to_render
     end
