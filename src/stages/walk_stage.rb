@@ -17,8 +17,7 @@ end
 def start_parallax_actor(actor, time)
   destination = -viewport.width * 1.5
   t = (actor.x - destination) * time / viewport.width
-  behavior_factory.add_behavior actor, :sliding
-  actor.emit :slide, x:destination, y:actor.y, time: t, style: Tween::Linear
+  tween_manager.tween_properties actor, { x:destination, y:actor.y }, t, Tween::Linear
 end
 
 def spawn_parallax_actor(actor_name, system, layer)
@@ -42,7 +41,7 @@ end
 
 
 define_stage :walk do
-  requires :behavior_factory
+  requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
     center_x = 427
@@ -64,25 +63,22 @@ define_stage :walk do
 
     # Walking Lady
     person = create_actor :walk_person, x:-20, y:285, layer: 10
-    behavior_factory.add_behavior person, :sliding
-    person.emit :slide, x:235, y:285, time: 44000, style: Tween::Linear
+    tween_manager.tween_properties person, { x:235, y:285 }, 44000, Tween::Linear
 
     # Lamps
     lamps = []
     lamp_distance = 440
     (0..3).each do |i|
       lamps << create_actor(:walk_lamp, x:(120 + (lamp_distance * i)), y:232, layer: 11)
-      behavior_factory.add_behavior lamps[i], :sliding
       fudge_factor = 115 # TODO: sliding math?  They move slightly too fast on the street.
       lamp_destination = (-viewport.width + (lamp_distance * i)) + fudge_factor
-      lamps[i].emit :slide, x:lamp_destination, y:232, time: 45_000, style: Tween::Linear
+      tween_manager.tween_properties lamps[i], { x:lamp_destination, y:232 }, 45_000, Tween::Linear
     end
 
     timer_manager.add_timer 'fade_moon', 12000 do
         timer_manager.remove_timer 'fade_moon'
         moon = create_actor :moon, x:120, y:440, layer: 1
-        behavior_factory.add_behavior moon, :sliding
-        moon.emit :slide, x:120, y:120, time: 22000, style: Tween::Quad::InOut
+        tween_manager.tween_properties moon, { x:120, y:120 }, 22_000, Tween::Quad::InOut
     end
 
     # maximum stage time is about 42 seconds

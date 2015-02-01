@@ -101,8 +101,7 @@ define_stage :dream do
 
     timer_manager.add_timer 'moon_slide', moon_outro_t do
       timer_manager.remove_timer 'moon_slide'
-      behavior_factory.add_behavior moon, :sliding
-      moon.emit :slide, x:267, y:-350, time: moon_outro_speed, style: Tween::Quad::InOut
+      tween_manager.tween_properties moon, { x:267, y:-350 }, moon_outro_speed, Tween::Quad::InOut
 
       timer_manager.add_timer 'moon_remove', moon_remove_t do
         timer_manager.remove_timer 'moon_remove'

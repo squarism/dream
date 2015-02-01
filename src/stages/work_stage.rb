@@ -69,8 +69,7 @@ define_stage :work do
     # ----------------------------------------------------------------
     timer_manager.add_timer 'sundown', 10 do
       timer_manager.remove_timer 'sundown'
-      behavior_factory.add_behavior sun, :sliding
-      sun.emit :slide, x:110, y:280, time: 20_000, style: Tween::Linear
+      tween_manager.tween_properties sun, { x:110, y:280 }, 20_000, Tween::Linear
     end
 
     timer_manager.add_timer 'sunfade', 5000 do

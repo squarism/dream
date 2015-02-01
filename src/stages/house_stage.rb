@@ -1,5 +1,5 @@
 define_stage :house do
-  requires :behavior_factory
+  requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
     opts = args.first || {}
@@ -18,23 +18,22 @@ define_stage :house do
 
     # lady
     person = create_actor :walk_person, x:167, y:245, layer: 4
-    behavior_factory.add_behavior person, :sliding
-    person.emit :slide, x:352, y:245, time: 8000, style: Tween::Linear
+    tween_manager.tween_properties person, { x:352, y:245 }, 8000, Tween::Linear
 
 
     timer_manager.add_timer 'sidewalk', 8000 do
       timer_manager.remove_timer 'sidewalk'
-      person.emit :slide, x:373, y:237, time: 1000, style: Tween::Sine::InOut
+      tween_manager.tween_properties person, { x:373, y:237 }, 1000, Tween::Sine::InOut
     end
 
     timer_manager.add_timer 'hill', 9000 do
       timer_manager.remove_timer 'hill'
-      person.emit :slide, x:442, y:270, time: 3000, style: Tween::Sine::InOut
+      tween_manager.tween_properties person, { x:442, y:270 }, 3000, Tween::Sine::InOut
     end
 
     timer_manager.add_timer 'steps', 11000 do
       timer_manager.remove_timer 'steps'
-      person.emit :slide, x:482, y:340, time: 4000, style: Tween::Sine::InOut
+      tween_manager.tween_properties person, { x:482, y:340 }, 4000, Tween::Sine::InOut
     end
 
     timer_manager.add_timer 'little_person', 15000 do
@@ -42,8 +41,7 @@ define_stage :house do
       person.remove
 
       little_person = create_actor :little_person, x:502, y:310, layer: 5
-      behavior_factory.add_behavior little_person, :sliding
-      little_person.emit :slide, x:596, y:215, time: 8000, style: Tween::Quad::InOut
+      tween_manager.tween_properties little_person, { x:596, y:215 }, 8000, Tween::Quad::InOut
     end
 
     timer_manager.add_timer 'door_open', 22_000 do
@@ -68,10 +66,9 @@ define_stage :house do
     timer_manager.add_timer 'shooting_star', 30_000 do
       timer_manager.remove_timer 'shooting_star'
       star = create_actor :shooting_star, x:587, y:-90, layer: 1
-      behavior_factory.add_behavior star, :sliding
       behavior_factory.add_behavior star, :fading
       star.alpha = 160
-      star.emit :slide, x:0, y:viewport.height, time: 1500, style: Tween::Quad::InOut
+      tween_manager.tween_properties star, { x:0, y:viewport.height }, 1500, Tween::Quad::InOut
     end
 
     timer_manager.add_timer 'curtain', 34_000 do

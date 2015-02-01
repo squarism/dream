@@ -1,5 +1,5 @@
 define_stage :intro do
-  requires :behavior_factory
+  requires :behavior_factory, :tween_manager
 
   curtain_up do |*args|
     # opts = args.first || {}
