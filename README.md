@@ -8,11 +8,12 @@ If you just want to watch it: [Video on Vimeo](https://vimeo.com/116836454)
 
 If you want to play with it or hack on it:
 
-* Install Ruby `ruby` should work
-* `gem install bundler` if you haven't already
+* Install Ruby - `ruby` should work
+* `gem install bundler` - if you haven't already
 * `git clone https://github.com/squarism/dream`
 * `cd dream`
+* `brew install sdl2 libogg libvorbis` - get gosu deps installed from homebrew 
 * `bundle install`
-* `rake` to run it (it gets this default task from the gamebox rake tasks)
+* `rake` - to run it (it gets this default task from the gamebox rake tasks)
 
 More info on gamebox is at [gamebox.io](http://gamebox.io).
