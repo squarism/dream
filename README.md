@@ -14,6 +14,6 @@ If you want to play with it or hack on it:
 * `cd dream`
 * `brew install sdl2 libogg libvorbis` - get gosu deps installed from homebrew 
 * `bundle install`
-* `rake` - to run it (it gets this default task from the gamebox rake tasks)
+* `bundle exec rake` - to run it (it gets this default task from the gamebox rake tasks)
 
 More info on gamebox is at [gamebox.io](http://gamebox.io).
